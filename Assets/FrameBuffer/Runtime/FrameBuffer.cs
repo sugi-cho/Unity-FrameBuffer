@@ -14,8 +14,9 @@ namespace sugi.cc.FrameBuffer
 
         [SerializeField] RenderTexture frameBuffer;
         [SerializeField] TextureEvent onCreateTexture;
+        [SerializeField] IntEvent onUpdateIndex;
 
-        int index;
+        public int index { get; private set; }
 
         public Texture SoutceTexture { set { source = value; Initialize(); } }
         public float fps { get { return 1f / duration; } set { duration = 1f / value; } }
@@ -49,11 +50,15 @@ namespace sugi.cc.FrameBuffer
         {
             if (source == null) return;
             index %= bufferCount;
-            Graphics.Blit(source, frameBuffer, 0, index++);
+            Graphics.Blit(source, frameBuffer, 0, index);
+            onUpdateIndex.Invoke(index);
+            index++;
             Invoke("Record", duration);
         }
 
         [System.Serializable]
         public class TextureEvent : UnityEvent<Texture> { }
+        [System.Serializable]
+        public class IntEvent : UnityEvent<int> { }
     }
 }
