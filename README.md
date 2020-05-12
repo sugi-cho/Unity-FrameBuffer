@@ -2,9 +2,8 @@
 
 ![](frameBuffer.gif)
 
-Buffering a texture frame into TextureArray.
-
-It uses a lot of GPU memory.
+- Buffering a texture frame into TextureArray.
+- It uses a lot of GPU memory.
 
 ## Use case
 
